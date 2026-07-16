@@ -11,12 +11,12 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    """Root endpoint that returns basic information about the API."""
+    """Endpoint to get basic information about the API."""
     return {"name": "Task API", "version": "1.0", "endpoint": ["/tasks"]}
 
 @app.get("/health")
 def read_health():
-    """Health check endpoint that returns the status of the API."""
+    """Endpoint to get the status of the API."""
     return {"status": "ok"}
 
 @app.get("/tasks")
@@ -26,7 +26,7 @@ def read_tasks():
 
 @app.get("/tasks/{id}")
 def read_task(id: int):
-    """Endpoint to get a specific task by its ID."""
+    """Endpoint to get a specific task by its id."""
     for task in memory:
         if task['id'] == id:
             return task
@@ -49,7 +49,7 @@ def create_task(task: dict):
 
 @app.put("/tasks/{id}")
 def update_task(id: int, updated_task: dict):
-    """Endpoint to update an existing task by its ID."""
+    """Endpoint to update an existing task by its id."""
     if 'title' not in updated_task and 'done' not in updated_task:
         raise HTTPException(status_code=400, detail={"error": "Title or done must be given"})
     
@@ -61,7 +61,7 @@ def update_task(id: int, updated_task: dict):
     
 @app.delete("/tasks/{id}")
 def delete_task(id: int):
-    """Endpoint to delete a task by its id"""
+    """Endpoint to delete a task by its id."""
     for task in memory:
         if task['id'] == id:
             memory.remove(task)
