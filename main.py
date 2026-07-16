@@ -4,4 +4,8 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"name": "Task API", "version": "1.0", "endpoint": ["/tasks"]}
+
+@app.get("/health")
+def read_health():
+    return {"status": "ok"}
