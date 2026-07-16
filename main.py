@@ -46,3 +46,26 @@ def create_task(task: dict):
         status_code=201,
         content=task
     )
+
+@app.put("/tasks/{id}")
+def update_task(id: int, updated_task: dict):
+    """Endpoint to update an existing task by its ID."""
+    if 'title' not in updated_task and 'done' not in updated_task:
+        raise HTTPException(status_code=400, detail={"error": "Title or done must be given"})
+    
+    for task in memory:
+        if task['id'] == id:
+            task.update(updated_task)
+            return task
+    raise HTTPException(status_code=404, detail={"error": f"Task {id} not found"})
+    
+@app.delete("/tasks/{id}")
+def delete_task(id: int):
+    """Endpoint to delete a task by its id"""
+    for task in memory:
+        if task['id'] == id:
+            memory.remove(task)
+            return JSONResponse(
+                status_code=204,
+                content={})
+    raise HTTPException(status_code=404, detail={"error": f"Task {id} not found"})
