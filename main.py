@@ -77,3 +77,15 @@ def delete_task(id: int):
                 status_code=204,
                 content={})
     raise HTTPException(status_code=404, detail={"error": f"Task {id} not found"})
+
+@app.get("/stats")
+def get_stats():
+    """Endpoint to get statistics about the tasks."""
+    total = len(memory)
+    done = 0
+    for task in memory:
+        if task['done']:
+            done += 1
+    open_tasks = total - done
+
+    return {"total": total, "done": done, "open": open_tasks}
