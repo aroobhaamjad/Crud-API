@@ -20,9 +20,17 @@ def read_health():
     return {"status": "ok"}
 
 @app.get("/tasks")
-def read_tasks():
-    """Endpoint to get all tasks."""
-    return memory
+def read_tasks(search: str = ""):
+    """Endpoint to get all or search tasks."""
+    if search == "":
+        return memory
+    
+    result = []
+    for task in memory:
+        if search.lower() in task['title'].lower():
+            result.append(task)         
+
+    return result
 
 @app.get("/tasks/{id}")
 def read_task(id: int):
