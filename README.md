@@ -35,3 +35,33 @@ API will be available at: http://localhost:8000
 
 Swagger documentation will be available at: http://localhost:8000/docs
 
+## API Endpoints
+
+| Method | Endpoint    | Description    |
+| :---:   | :---: | :---: |
+| GET | /   |  Returns basic API information  |
+| GET | /health   |  Returns API health status  |
+| GET | /tasks   |  Returns all tasks  |
+| GET | /tasks/{id}   |  Returns a specific task by ID  |
+| POST | /tasks   |  Creates a new task  |
+| PUT | /tasks{id}   |  Updates an existing task  |
+| DELETE | /tasks{id}   |  Deletes a task  |
+
+## Example Request
+
+### Create a Task
+
+### cURL
+
+curl -i -X POST http://localhost:8000/tasks -H "Content-Type: application/json" -d '{"title":"Buy milk"}'
+
+### Response
+
+HTTP/1.1 201 Created
+content-type: application/json
+
+{
+    "title": "Buy milk",
+    "id": 3,
+    "done": false
+}
