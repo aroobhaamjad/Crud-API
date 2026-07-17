@@ -43,7 +43,7 @@ def read_task(id: int):
 @app.post("/tasks")
 def create_task(task: dict):
     """Endpoint to create a new task."""
-    if 'title' not in task:
+    if 'title' not in task or task['title'] == "":
         raise HTTPException(status_code=400, detail={"error": "Task title is required"})
     
     task['id'] = len(memory)
@@ -58,7 +58,7 @@ def create_task(task: dict):
 @app.put("/tasks/{id}")
 def update_task(id: int, updated_task: dict):
     """Endpoint to update an existing task by its id."""
-    if 'title' not in updated_task and 'done' not in updated_task:
+    if 'title' not in updated_task and 'done' not in updated_task and 'title' == ""  and 'done' == "":
         raise HTTPException(status_code=400, detail={"error": "Title or done must be given"})
     
     for task in memory:
